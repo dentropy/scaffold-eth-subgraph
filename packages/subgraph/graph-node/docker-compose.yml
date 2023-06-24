@@ -1,5 +1,23 @@
 version: "3"
 services:
+  ganache:
+    image: trufflesuite/ganache-cli:latest
+    ports:
+      - "8545:8545"
+    volumes:
+      - ./ganache_data:/ganache_data
+    entrypoint:
+      - node
+      - /app/ganache-core.docker.cli.js
+      - --deterministic
+      - --db=/ganache_data
+      - --mnemonic
+      - 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef'
+      - --networkId
+      - '1337'
+      - --hostname
+      - '0.0.0.0'
+      - --debug
   graph-node:
     image: graphprotocol/graph-node:latest
     ports:
@@ -11,16 +29,15 @@ services:
     depends_on:
       - ipfs
       - postgres
+      - ganache
     environment:
       postgres_host: postgres
       postgres_user: graph-node
       postgres_pass: let-me-in
       postgres_db: graph-node
       ipfs: "ipfs:5001"
-      ethereum: "localhost:http://host.docker.internal:8545"
+      ethereum: "localhost:http://ganache:8545"
       GRAPH_LOG: info
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
   ipfs:
     image: ipfs/go-ipfs:v0.10.0
     ports:
@@ -40,5 +57,6 @@ services:
       POSTGRES_USER: graph-node
       POSTGRES_PASSWORD: let-me-in
       POSTGRES_DB: graph-node
+      POSTGRES_INITDB_ARGS: "-E UTF8 --locale=C"
     volumes:
       - ./data/postgres:/var/lib/postgresql/data

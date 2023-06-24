@@ -11,3 +11,5 @@ node_modules
 .eslintcache
 .vscode/**
 .DS_Store
+/packages/subgraph/graph-node/data
+packages/subgraph/graph-node/ganache_data

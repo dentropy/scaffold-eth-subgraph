@@ -12,7 +12,8 @@
     "local-ship": "yarn abi-copy && yarn codegen && yarn build --network localhost && yarn local-deploy",
     "run-node": "cd graph-node && docker-compose up",
     "stop-node": "cd graph-node && docker-compose down",
-    "clean-node": "rm -rf graph-node/data/"
+    "clean-node": "rm -rf graph-node/data/",
+    "reset-node": "cd graph-node && docker-compose down && sudo rm -rf ../graph-node/data/ && docker-compose up -d"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "^0.46.1",

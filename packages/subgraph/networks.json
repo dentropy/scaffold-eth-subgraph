@@ -3,5 +3,10 @@
     "YourContract": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
     }
+  },
+  "ganache": {
+    "YourContract": {
+      "address": "0x476059cD57800DB8eB88f67c2Aa38A6fCf8251e0"
+    }
   }
 }
